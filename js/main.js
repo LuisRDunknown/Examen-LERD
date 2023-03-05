@@ -1,38 +1,41 @@
-let store = document.getElementById('comp')
-let componet = document.getElementById('tienda').content
+let sala = document.getElementById('sala')
+let cine = document.getElementById('cine').content
 let fragment = document.createDocumentFragment()
-let topComponets = []
+let miArray = [];
 
 document.addEventListener('DOMContentLoaded', () =>{
-    Computer()
+    cines()
 })
 
-const Computer = () =>{
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'f66037c393msh753864e960df220p19c3a9jsnb6a4fce3d4c6',
-		'X-RapidAPI-Host': 'computer-components-api.p.rapidapi.com'
-	}
-};
-
-fetch('https://computer-components-api.p.rapidapi.com/power_supply?limit=50&offset=0', options)
+const cines = () =>{
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'f66037c393msh753864e960df220p19c3a9jsnb6a4fce3d4c6',
+            'X-RapidAPI-Host': 'online-movie-database.p.rapidapi.com'
+        }
+    };
+    
+    fetch('https://online-movie-database.p.rapidapi.com/auto-complete?q=game%20of%20thr', options)
 	.then(response => response.json())
 	.then(response => {
-        topComponets = response 
-        componetsPc()
+        miArray = response 
+        salas()
     })
-	.catch(err => console.error(err));
+    .catch(err => {
+        console.log('Se ha producido un error: ', err);
+      });
+      
 }
 
-const componetsPc = () =>{
-    topComponets.forEach((pc) =>{
-        componet.querySelector('img').setAttribute('src', pc.img)
-        componet.querySelector('p')[0].textContent = pc.title
-        componet.querySelector('p')[1].textContent = pc.price
+const salas = () => {
 
-        const clone = componet.cloneNode(true)
+    miArray.forEach((movi) =>{
+
+        cine.querySelector('img').setAttribute('src', movi.d.i.imageUrl)
+
+        const clone = cine.cloneNode(true)
         fragment.appendChild(clone)
     })
-    store.appendChild(fragment)
+    sala.appendChild(fragment)
 }
