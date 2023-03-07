@@ -12,7 +12,7 @@ const options = {
 
 const fetchData = async () => {
     try {
-        const response = await fetch('https://computer-components-api.p.rapidapi.com/power_supply?limit=50&offset=0', options);
+        const response = await fetch('https://computer-components-api.p.rapidapi.com/motherboard?limit=50&offset=0', options);
         const data = await response.json();
         return data;
     } catch (error) {
